@@ -1,0 +1,23 @@
+{
+  "name": "node-js-deb-repo",
+  "version": "0.0.1-alpha",
+  "description": "Create debian repositoris using node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkg20001/node-js-deb-repo.git"
+  },
+  "keywords": [
+    "debian",
+    "repository"
+  ],
+  "author": "Maciej Krüger",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/mkg20001/node-js-deb-repo/issues"
+  },
+  "homepage": "https://github.com/mkg20001/node-js-deb-repo#readme"
+}
