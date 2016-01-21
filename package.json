@@ -1,7 +1,7 @@
 {
   "name": "node-js-deb-repo",
   "version": "0.0.1-alpha",
-  "description": "Create debian repositoris using node",
+  "description": "Create debian repositories using node",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
