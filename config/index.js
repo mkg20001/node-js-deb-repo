@@ -25,11 +25,54 @@ function config(name,d,ser) {
   save();
 
   function get(key) {
-    return c[key];
+    var a=key.split(".");
+    var cc=c;
+    a.map(function(k) {
+      if (cc) {cc=cc[k];} else {throw "Key "+key+" is missing parent\nAdd it to the defaults";}
+    });
+    return cc;
   }
 
   function set(key,val) {
-    c[key]=val;
+    function j2a(j) {
+      var a=[];
+      for (var p in j) {
+        a.push(j[p]);
+      }
+      return a;
+    }
+    var a=key.split(".");
+    var cc=c;
+    var keys=[];
+    a.map(function(k) {
+      keys.push(k);
+    });
+    var kk=function(k) {
+      keys.push(k);
+      if (cc) {
+        cc=cc[k];
+      } else {
+        throw "Key "+key+" is missing parent\nAdd it to the defaults";
+      }
+    };
+    var ccc=val;
+    var run=true;
+    var lk;
+    while(run) {
+      lk=keys[keys.length-1];
+      delete keys[keys.length-1];
+      a=keys;
+      keys=[];
+      a.map(kk);
+      try {
+        cc[lk]=ccc;
+      } catch(e) {
+        var keylist=keys.join(".");
+        throw "Key "+keylist+" is missing\nAdd it to the defaults";
+      }
+      ccc=cc;cc=c;
+      if (keys.length===0) {run=false;}
+    }
     save();
   }
 
