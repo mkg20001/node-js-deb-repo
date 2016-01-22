@@ -13,6 +13,13 @@
   .dropdown-menu .fa {
     margin-left:10px;
   }
+  .avatar {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50%;
+    border: solid 2px grey;
+    margin: 8px;
+  }
   </style>
 </head>
 <body>
@@ -55,19 +62,42 @@
         </form>!-->
         <ul class="nav navbar-nav navbar-right">
           <% if (user) {
+            function getUser(req,p) {
+              var r="Unkown";
+              var users=["google","twitter","facebook","local"];
+              users.map(function(pp) {
+                if (req[pp]) {
+                  if (req[pp][p]) r=req[pp][p];
+                }
+              });
+              return r;
+            }
+            user.email=getUser(user,"email");
             %>
+            <li><a><%= user.username %></a></li>
+            <li class="dropdown"><img class="avatar" src="https://zion.host/images/avatar.png" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></img>
+              <ul class="dropdown-menu">
+                <li><a href="/User/profile"><%= user.username %></a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/User/Settings">Settings</a></li>
+                <li><a href="#">PPAs</a></li>
+                <li><a href="#">Packages</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/Login/logout">Logout</a></li>
+              </ul>
+            </li>
             <%
           } else {
             %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li class="text-primary"><span class="fa fa-facebook"></span> Facebook</li>
-                <li class="text-info"><span class="fa fa-twitter"></span> Twitter</li>
-                <li class="text-danger"><span class="fa fa-google-plus"></span> Google+</li>
+                <li class="text-primary"><a href="/Login/auth/facebook"><span class="fa fa-facebook"></span> Facebook</a></li>
+                <li class="text-info"><a href="/Login/auth/twitter"><span class="fa fa-twitter"></span> Twitter</a></li>
+                <li class="text-danger"><a href="/Login/auth/google"><span class="fa fa-google-plus"></span> Google+</a></li>
                 <li role="separator" class="divider"></li>
-                <li><span class="fa fa-user"></span> Login</li>
-                <li><span class="fa fa-user"></span> SignUp</li>
+                <li class="text-default"><a href="/Login/login"><span class="fa fa-user"></span> Local Login</a></li>
+                <li class="text-default"><a href="/Login/signup"><span class="fa fa-user"></span> Local Signup</a></li>
               </ul>
             </li>
             <%

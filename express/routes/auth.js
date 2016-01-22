@@ -4,12 +4,12 @@ module.exports = function(app, passport) {
 
     // show the home page (will also have our login links)
     app.get('/', function(req, res) {
-        basicRender(req,res,"Login","login-list");
+        basicRender(req,res,"Login","login/list");
     });
 
     // PROFILE SECTION =========================
     app.get('/profile', isLoggedIn, function(req, res) {
-        basicRender(req,res,"Profile","profile",{user:req.user});
+        basicRender(req,res,"Profile","profile/profile",{user:req.user});
     });
 
     // LOGOUT ==============================
@@ -26,7 +26,7 @@ module.exports = function(app, passport) {
         // LOGIN ===============================
         // show the login form
         app.get('/login', function(req, res) {
-            basicRender(req,res,"Local Login","login",{ message: req.flash('loginMessage') });
+            basicRender(req,res,"Local Login","login/login",{ message: req.flash('loginMessage') });
         });
 
         // process the login form
@@ -39,7 +39,7 @@ module.exports = function(app, passport) {
         // SIGNUP =================================
         // show the signup form
         app.get('/signup', function(req, res) {
-            basicRender(req,res,"Local Signup","signup",{ message: req.flash('signupMessage') });
+            basicRender(req,res,"Local Signup","login/signup",{ message: req.flash('signupMessage') });
         });
 
         // process the signup form
@@ -57,8 +57,8 @@ module.exports = function(app, passport) {
         // handle the callback after facebook has authenticated the user
         app.get('/auth/facebook/callback',
             passport.authenticate('facebook', {
-                successRedirect : '/profile',
-                failureRedirect : '/'
+                successRedirect : '/Login/profile',
+                failureRedirect : '/Login/'
             }));
 
     // twitter --------------------------------
@@ -92,7 +92,7 @@ module.exports = function(app, passport) {
 
     // locally --------------------------------
         app.get('/connect/local', function(req, res) {
-            basicRender(req,res,"Connect Local","connect-local",{ message: req.flash('loginMessage') });
+            basicRender(req,res,"Connect Local","login/connect-local",{ message: req.flash('loginMessage') });
         });
         app.post('/connect/local', passport.authenticate('local-signup', {
             successRedirect : '/Login/profile', // redirect to the secure profile section

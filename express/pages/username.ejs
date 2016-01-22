@@ -1,0 +1,20 @@
+<div class="col-sm-6 col-sm-offset-3">
+
+    <h1><span class="fa fa-user"></span> Select your Username</h1>
+
+    <% if (message.length > 0) { %>
+        <div class="alert alert-danger"><%= message %></div>
+    <% } %>
+
+    <!-- LOGIN FORM -->
+    <form action="/Username" method="post">
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" class="form-control" name="name">
+        </div>
+        <p class="text-danger">This will affect all links with your username inside</p>
+        <hr>
+        <button type="submit" class="btn btn-warning btn-lg">Change</button>
+    </form>
+
+</div>

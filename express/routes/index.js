@@ -22,4 +22,21 @@ router.get('/', function(req, res, next) {
   basicRender(req,res,"Home","index");
 });
 
+router.get("/Username", function(req,res,next) {
+  basicRender(req,res,"Select your Username","username",{message:req.flash("usernameChange")});
+});
+
+router.post("/Username", function(req,res,next) {
+  if (!req.body.name) {req.flash("usernameChange","No Username set");}
+  req.user.username=req.body.name;
+  req.user.save(function(err) {
+    if (err) {
+      req.flash("usernameChange",err);
+    } else {
+      req.flash("usernameChange","Username set to "+req.body.name);
+    }
+    res.redirect("/Username");
+  });
+});
+
 module.exports = router;
